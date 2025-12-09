@@ -1,14 +1,23 @@
 [
   {
-    "id": "2DB20BF4",
-    "name": "Duclos",
+    "id": "14222ECB",
+    "userName": "yann76",
     "email": "yann@test.com",
-    "password": "yann1303"
+    "password": "yann",
+    "isAdmin": false
   },
   {
-    "id": "B14AB688",
-    "name": "edd",
-    "email": "ff",
-    "password": "eff"
+    "id": "F772C9B9",
+    "userName": "admin",
+    "email": "admin@biblio.com",
+    "password": "admin",
+    "isAdmin": true
+  },
+  {
+    "id": "5C8AD7AE",
+    "userName": "paul",
+    "email": "paul@test.com",
+    "password": "paul",
+    "isAdmin": false
   }
 ]

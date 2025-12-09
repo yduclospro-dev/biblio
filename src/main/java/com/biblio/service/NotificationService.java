@@ -1,7 +1,6 @@
 package main.java.com.biblio.service;
 
 import main.java.com.biblio.pattern.strategy.ConsoleNotificationStrategy;
-import main.java.com.biblio.pattern.strategy.EmailNotificationStrategy;
 import main.java.com.biblio.pattern.strategy.NotificationStrategy;
 
 /**
@@ -11,11 +10,6 @@ import main.java.com.biblio.pattern.strategy.NotificationStrategy;
  */
 public class NotificationService {
     private NotificationStrategy strategy;
-
-    public NotificationService() {
-        // Par défaut : Console
-        this.strategy = new ConsoleNotificationStrategy();
-    }
 
     public NotificationService(NotificationStrategy strategy) {
         this.strategy = strategy;
@@ -43,13 +37,5 @@ public class NotificationService {
     public void sendConsoleNotification(String message) {
         setNotificationStrategy(new ConsoleNotificationStrategy());
         sendNotification("SYSTEM", message);
-    }
-
-    /**
-     * Envoyer une notification Email
-     */
-    public void sendEmailNotification(String email, String message) {
-        setNotificationStrategy(new EmailNotificationStrategy());
-        sendNotification(email, message);
     }
 }

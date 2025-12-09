@@ -29,7 +29,7 @@ public class BookDTO {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s par %s (ISBN: %s) - %s",
-                id, title, author, isbn, isAvailable ? "Disponible" : "Emprunté");
+        return String.format("%s par %s (ISBN: %s) - %s",
+                title, author, isbn, isAvailable ? "Disponible" : "Emprunté");
     }
 }

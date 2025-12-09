@@ -26,7 +26,12 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public Book findByTitle(String title) {
-        return dataStore.findBy(dataStore.getBooks(), b -> ((Book)b).getTitle().equals(title));
+        return dataStore.findBy(dataStore.getBooks(), b -> ((Book)b).getTitle().toLowerCase().contains(title.toLowerCase()));
+    }
+
+    @Override
+    public Book findByIsbn(String isbn) {
+        return dataStore.findBy(dataStore.getBooks(), b -> ((Book)b).getIsbn().equals(isbn));
     }
 
     @Override

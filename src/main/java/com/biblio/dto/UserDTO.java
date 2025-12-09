@@ -8,21 +8,24 @@ package main.java.com.biblio.dto;
  */
 public class UserDTO {
     private String id;
-    private String name;
+    private String userName;
     private String email;
+    private boolean isAdmin;
 
-    public UserDTO(String id, String name, String email) {
+    public UserDTO(String id, String userName, String email, boolean isAdmin) {
         this.id = id;
-        this.name = name;
+        this.userName = userName;
         this.email = email;
+        this.isAdmin = isAdmin;
     }
 
     public String getId() { return id; }
-    public String getName() { return name; }
+    public String getUserName() { return userName; }
     public String getEmail() { return email; }
+    public boolean isAdmin() { return isAdmin; }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s (%s)", id, name, email);
+        return String.format("%s (%s) - %s", userName, email, isAdmin ? "Admin" : "User");
     }
 }

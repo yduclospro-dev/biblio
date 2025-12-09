@@ -59,9 +59,10 @@ public class JSONStorage {
                 User user = (User) obj;
                 return "{\n" +
                     "    \"id\": \"" + user.getId() + "\",\n" +
-                    "    \"name\": \"" + escapeJSON(user.getName()) + "\",\n" +
+                    "    \"userName\": \"" + escapeJSON(user.getUserName()) + "\",\n" +
                     "    \"email\": \"" + user.getEmail() + "\",\n" +
-                    "    \"password\": \"" + user.getPassword() + "\"\n" +
+                    "    \"password\": \"" + user.getPassword() + "\",\n" +
+                    "    \"isAdmin\": " + user.isAdmin() + "\n" +
                     "  }";
             case "Loan":
                 Loan loan = (Loan) obj;
@@ -117,18 +118,13 @@ public class JSONStorage {
 
         if (entityClass == Book.class) {
             String id = extractJSONValue(json, "id");
-            String title = extractJSONValue(json, "title");
-            String author = extractJSONValue(json, "author");
-            String isbn = extractJSONValue(json, "isbn");
-            boolean isAvailable = Boolean.parseBoolean(extractJSONValue(json, "isAvailable"));
-
             if (!id.isEmpty()) {
                 Book book = new Book.Builder()
                     .id(id)
-                    .title(title)
-                    .author(author)
-                    .isbn(isbn)
-                    .isAvailable(isAvailable)
+                    .title(extractJSONValue(json, "title"))
+                    .author(extractJSONValue(json, "author"))
+                    .isbn(extractJSONValue(json, "isbn"))
+                    .isAvailable(Boolean.parseBoolean(extractJSONValue(json, "isAvailable")))
                     .build();
 
                 return entityClass.cast(book);
@@ -137,25 +133,28 @@ public class JSONStorage {
 
         if (entityClass == User.class) {
             String id = extractJSONValue(json, "id");
-            String name = extractJSONValue(json, "name");
-            String email = extractJSONValue(json, "email");
-            String password = extractJSONValue(json, "password");
-
             if (!id.isEmpty()) {
-                User user = new User(id, name, email, password);
+                User user = new User.Builder()
+                    .id(id)
+                    .userName(extractJSONValue(json, "userName"))
+                    .email(extractJSONValue(json, "email"))
+                    .password(extractJSONValue(json, "password"))
+                    .isAdmin(Boolean.parseBoolean(extractJSONValue(json, "isAdmin")))
+                    .build();
                 return entityClass.cast(user);
             }
         }
 
-        if (entityClass == Loan.class) {
+        if (entityClass == Loan.class) {            
             String id = extractJSONValue(json, "id");
-            String bookId = extractJSONValue(json, "bookId");
-            String userId = extractJSONValue(json, "userId");
-            String loanDateStr = extractJSONValue(json, "loanDate");
             String returnDateStr = extractJSONValue(json, "returnDate");
-
             if (!id.isEmpty()) {
-                Loan loan = new Loan(id, bookId, userId, new Date(Long.parseLong(loanDateStr)));
+                Loan loan = new  Loan.Builder()
+                    .id(id)
+                    .bookId(extractJSONValue(json, "bookId"))
+                    .userId(extractJSONValue(json, "userId"))
+                    .loanDate(new Date(Long.parseLong(extractJSONValue(json, "loanDate"))))
+                    .build();
                 if (!returnDateStr.equals("null")) {
                     loan.setReturnDate(new Date(Long.parseLong(returnDateStr)));
                 }

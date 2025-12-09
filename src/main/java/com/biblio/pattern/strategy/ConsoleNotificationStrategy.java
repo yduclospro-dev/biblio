@@ -6,7 +6,7 @@ package main.java.com.biblio.pattern.strategy;
 public class ConsoleNotificationStrategy implements NotificationStrategy {
     @Override
     public void send(String recipient, String message) {
-        System.out.println("💻 Notification Console - Destinataire : " + recipient);
-        System.out.println("   Message : " + message);
+        System.out.println("\nNotification Console - Destinataire : " + recipient);
+        System.out.println("\nMessage : " + message);
     }
 }

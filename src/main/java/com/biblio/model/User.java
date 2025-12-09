@@ -2,28 +2,31 @@ package main.java.com.biblio.model;
 
 public class User {
     private String id;
-    private String name;
+    private String userName;
     private String email;
     private String password;
+    private boolean isAdmin;
 
-    public User(String id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    public User(Builder builder) {
+        this.id = builder.id;
+        this.userName = builder.name;
+        this.email = builder.email;
+        this.password = builder.password;
+        this.isAdmin = builder.isAdmin;
     }
 
     public String getId() { return id; }
-    public String getName() { return name; }
+    public String getUserName() { return userName; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+    public boolean isAdmin() { return isAdmin; }
 
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s (%s)", id, name, email);
+        return String.format("[%s] %s (%s)", id, userName, email);
     }
 
     /**
@@ -36,14 +39,15 @@ public class User {
         private String name;
         private String email;
         private String password;
+        private boolean isAdmin;
 
         public Builder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder userName(String userName) {
+            this.name = userName;
             return this;
         }
 
@@ -57,8 +61,13 @@ public class User {
             return this;
         }
 
+        public Builder isAdmin(boolean isAdmin) {
+            this.isAdmin = isAdmin;
+            return this;
+        }
+
         public User build() {
-            return new User(id, name, email, password);
+            return new User(this);
         }
     }
 }

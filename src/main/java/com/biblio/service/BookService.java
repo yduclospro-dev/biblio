@@ -25,6 +25,14 @@ public class BookService {
      */
     public BookDTO createBook(String title, String author, String isbn) {
         String bookId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
+        if (bookRepository.findByTitle(title) != null) {
+            throw new IllegalArgumentException("Un livre avec ce titre existe déjà.");
+        }
+
+        if (bookRepository.findByIsbn(isbn) != null) {
+            throw new IllegalArgumentException("Un livre avec cet ISBN existe déjà.");
+        }
         
         // Pattern : Builder
         Book book = new Book.Builder()
@@ -45,27 +53,14 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public List<BookDTO> getAvailableBooks() {
-        return bookRepository.findAvailable().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    public List<BookDTO> searchBooksByTitle(String title) {
-        return bookRepository.findAll().stream()
-                .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public BookDTO searchBookByTitle(String title) {
+        return bookRepository.findByTitle(title) != null ? convertToDTO(bookRepository.findByTitle(title)) : null;
     }
 
     public BookDTO getBookById(String id) {
         Book book = bookRepository.findById(id);
         if (book == null) return null;
         return convertToDTO(book);
-    }
-
-    public void deleteBook(String id) {
-        bookRepository.delete(id);
     }
 
     public boolean isBookAvailable(String bookId) {

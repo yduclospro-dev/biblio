@@ -14,4 +14,6 @@ public interface UserRepository {
     List<User> findAll();
     void delete(String id);
     User findByEmail(String email);
+    User findByUserName(String userName);
+    boolean adminExists();
 }

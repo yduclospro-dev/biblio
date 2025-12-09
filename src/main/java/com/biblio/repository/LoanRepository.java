@@ -12,4 +12,6 @@ public interface LoanRepository {
     Loan findById(String id);
     List<Loan> findAll();
     void delete(String id);
+    Loan findActiveLoanByBookAndUser(String bookId, String userId);
+    List<Loan> findByUserId(String userId);
 }

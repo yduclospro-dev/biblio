@@ -40,4 +40,18 @@ public class UserRepositoryImpl implements UserRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public User findByUserName(String userName) {
+        return findAll().stream()
+                .filter(u -> u.getUserName().equals(userName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public boolean adminExists() {
+        return findAll().stream()
+                .anyMatch(User::isAdmin);
+    }
 }

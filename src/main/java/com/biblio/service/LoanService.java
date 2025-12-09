@@ -2,6 +2,7 @@ package main.java.com.biblio.service;
 
 import main.java.com.biblio.repository.DataStore;
 import main.java.com.biblio.repository.LoanRepository;
+import main.java.com.biblio.dto.LoanDTO;
 import main.java.com.biblio.model.Loan;
 import main.java.com.biblio.pattern.observer.LoanEvent;
 import main.java.com.biblio.pattern.observer.LoanSubject;
@@ -39,11 +40,11 @@ public class LoanService {
      */
     public String createLoan(String bookId, String userId) {
         if (!bookService.isBookAvailable(bookId)) {
-            throw new IllegalArgumentException("Le livre n'est pas disponible");
+            throw new IllegalArgumentException("Le livre n'est pas disponible.");
         }
 
         if (userService.getUserById(userId) == null) {
-            throw new IllegalArgumentException("Utilisateur non trouvé");
+            throw new IllegalArgumentException("L'utilisateur n'a pas été trouvé trouvé.");
         }
 
         String loanId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -59,7 +60,7 @@ public class LoanService {
 
         // Pattern : Observer - Notifier les observateurs
         String bookTitle = bookService.getBookById(bookId).getTitle();
-        String userName = userService.getUserById(userId).getName();
+        String userName = userService.getUserById(userId).getUserName();
         LoanEvent event = new LoanEvent(bookId, userId, bookTitle, userName);
         
         // Attacher un observateur de notification et déclencher
@@ -86,7 +87,7 @@ public class LoanService {
 
         // Pattern : Observer - Notifier les observateurs
         String bookTitle = bookService.getBookById(loan.getBookId()).getTitle();
-        String userName = userService.getUserById(loan.getUserId()).getName();
+        String userName = userService.getUserById(loan.getUserId()).getUserName();
         LoanEvent event = new LoanEvent(loan.getBookId(), loan.getUserId(), bookTitle, userName);
         
         String userEmail = userService.getUserById(loan.getUserId()).getEmail();
@@ -94,14 +95,22 @@ public class LoanService {
         loanSubject.attach(notificationObserver);
         loanSubject.notifyLoanReturned(event);
     }
-
-    public List<Loan> getAllLoans() {
-        return loanRepository.findAll();
+    
+    public LoanDTO getActiveLoanByBookAndUser(String bookId, String userId) {
+        return convertToDTO(loanRepository.findActiveLoanByBookAndUser(bookId, userId));
     }
 
-    public List<Loan> getActiveLoans() {
-        return loanRepository.findAll().stream()
-                .filter(loan -> loan.getReturnDate() == null)
-                .collect(Collectors.toList());
+    public List<LoanDTO> getActiveLoansByUserId(String userId) {
+        return loanRepository.findByUserId(userId).stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private LoanDTO convertToDTO(Loan loan) {
+        return new LoanDTO(
+            loan.getId(),
+            loan.getBookId(),
+            loan.getUserId(),
+            loan.getLoanDate(),
+            loan.getReturnDate()
+        );
     }
 }

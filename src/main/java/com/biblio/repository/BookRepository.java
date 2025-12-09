@@ -12,6 +12,7 @@ public interface BookRepository {
     void save(Book book);
     Book findById(String id);
     Book findByTitle(String title);
+    Book findByIsbn(String isbn);
     List<Book> findAll();
     void delete(String id);
     List<Book> findAvailable();

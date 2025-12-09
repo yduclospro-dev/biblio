@@ -13,11 +13,11 @@ public class Loan {
     private Date loanDate;
     private Date returnDate;
 
-    public Loan(String id, String bookId, String userId, Date loanDate) {
-        this.id = id;
-        this.bookId = bookId;
-        this.userId = userId;
-        this.loanDate = loanDate;
+    public Loan(Builder builder) {
+        this.id = builder.id;
+        this.bookId = builder.bookId;
+        this.userId = builder.userId;
+        this.loanDate = builder.loanDate;
         this.returnDate = null;
     }
 
@@ -60,7 +60,7 @@ public class Loan {
         }
 
         public Loan build() {
-            return new Loan(id, bookId, userId, loanDate);
+            return new Loan(this);
         }
     }
 

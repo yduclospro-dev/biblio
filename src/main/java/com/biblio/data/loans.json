@@ -1,2 +1,16 @@
 [
+  {
+    "id": "5EB015D5",
+    "bookId": "EC82DB19",
+    "userId": "14222ECB",
+    "loanDate": "1765241149129",
+    "returnDate": "1765242511411"
+  },
+  {
+    "id": "32BF4CE0",
+    "bookId": "EC82DB19",
+    "userId": "14222ECB",
+    "loanDate": "1765243782302",
+    "returnDate": "1765245734427"
+  }
 ]

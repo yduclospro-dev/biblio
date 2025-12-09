@@ -66,9 +66,9 @@ public class App {
     }
 
     private void displayMenu() {
-        System.out.println("\n╔════════════════════════════════════════╗");
-        System.out.println("║   MA PETITE BIBLIOTHÈQUE                 ║");
-        System.out.println("╚═════════════════════════════════════════╝");
+        System.out.println("\n╔══════════════════════════════════════╗");
+        System.out.println("║        MA PETITE BIBLIOTHÈQUE        ║");
+        System.out.println("╚══════════════════════════════════════╝");
         System.out.println("Utilisateur actuel : " + (currentUser == null ? "Non authentifié" : currentUser.toString()));
         System.out.println("\n1. S'inscrire");
         System.out.println("2. Se connecter");
@@ -274,7 +274,7 @@ public class App {
                 );
             }
         }
-        
+
         System.out.println(repeatChar('═', 60));
 
         System.out.print("\nTitre du livre à retourner: ");

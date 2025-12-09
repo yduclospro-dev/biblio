@@ -1,7 +1,8 @@
-package main.java.com.biblio.repository;
+package main.java.com.biblio.pattern.singleton;
 
 import main.java.com.biblio.model.Book;
 import main.java.com.biblio.model.User;
+import main.java.com.biblio.repository.JSONStorage;
 import main.java.com.biblio.model.Loan;
 import main.java.com.biblio.util.Utils;
 import java.util.*;

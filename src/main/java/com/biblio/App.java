@@ -344,7 +344,7 @@ public class App {
     private void pause() {
         System.out.print("\nAppuyez sur Entrée pour continuer...");
         scanner.nextLine();
-        clearConsole(); // si tu as écrit cette méthode
+        clearConsole();
     }
 
     private static void clearConsole() {

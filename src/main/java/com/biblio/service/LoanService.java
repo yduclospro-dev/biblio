@@ -1,12 +1,12 @@
 package main.java.com.biblio.service;
 
-import main.java.com.biblio.repository.DataStore;
 import main.java.com.biblio.repository.LoanRepository;
 import main.java.com.biblio.dto.LoanDTO;
 import main.java.com.biblio.model.Loan;
 import main.java.com.biblio.pattern.observer.LoanEvent;
 import main.java.com.biblio.pattern.observer.LoanSubject;
 import main.java.com.biblio.pattern.observer.NotificationObserver;
+import main.java.com.biblio.pattern.singleton.DataStore;
 
 import java.util.Date;
 import java.util.List;

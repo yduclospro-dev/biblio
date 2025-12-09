@@ -1,9 +1,10 @@
 package main.java.com.biblio.service;
 
 import main.java.com.biblio.model.Book;
+import main.java.com.biblio.pattern.singleton.DataStore;
 import main.java.com.biblio.dto.BookDTO;
 import main.java.com.biblio.repository.BookRepository;
-import main.java.com.biblio.repository.DataStore;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
